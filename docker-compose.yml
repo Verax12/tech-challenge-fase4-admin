@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  db_admin:
+    image: postgres:13
+    container_name: pg_admin_container
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=admin_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data_admin:/var/lib/postgresql/data
+
+  api_admin:
+    build: .
+    container_name: api_admin_container
+    depends_on:
+      - db_admin
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://admin:secret@db_admin:5432/admin_db
+      # URL do serviço de vendas (nome do container na rede docker ou localhost se rodar fora)
+      - VENDAS_API_URL=http://api_vendas_container:8000/vendas/veiculos
+
+volumes:
+  postgres_data_admin:
+        
