@@ -4,7 +4,7 @@ import requests
 def test_health_check(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Serviço Principal Operacional"}
+    assert response.json() == {"status": "ok", "service": "admin-service"}
 
 def test_cadastrar_veiculo_sucesso_com_integracao(client):
     """
