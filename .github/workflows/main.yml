@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v3
+
+    - name: Configurar Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Rodar Testes e Verificar Cobertura
+      # Aqui garantimos que se a cobertura for menor que 80%, o pipeline falha (Fail-safe)
+      run: |
+        pytest --cov=src --cov-fail-under=80 tests/
+
+    - name: Simulação de Deploy
+      # No Tech Challenge, se você não tiver nuvem paga, basta mostrar que o passo existe.
+      if: success()
+      run: |
+        echo "Testes passaram! Iniciando deploy..."
+        echo "Deploy realizado com sucesso (Simulado)."
