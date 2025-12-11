@@ -67,7 +67,7 @@ Utilize o Docker para garantir que o ambiente suba com as configurações de red
     Bash
 
     ```
-    git clone <url-do-seu-repo-admin>
+    git clone https://github.com/Verax12/tech-challenge-fase4-admin.git
     cd tech-challenge-fase4-admin
 
     ```
@@ -190,3 +190,6 @@ Para validar a lógica e verificar a cobertura de código (Requisito: 80% ^1^):
 
 ---
 **Nota:** Para o teste de integração completo funcionar, certifique-se de que o container `api_vendas_container` esteja rodando na mesma rede ou acessível via URL configurada.
+
+
+#TESTES
